@@ -19,6 +19,7 @@ import { selectShowMatureContent } from 'redux/selectors/settings';
 import { makeSelectHasVisitedUri } from 'redux/selectors/content';
 import { makeSelectIsSubscribed } from 'redux/selectors/subscriptions';
 import ClaimPreview from './view';
+import { doOpenModal } from 'redux/actions/app';
 
 const select = (state, props) => ({
   pending: props.uri && makeSelectClaimIsPending(props.uri)(state),
@@ -42,6 +43,7 @@ const select = (state, props) => ({
 const perform = dispatch => ({
   resolveUri: uri => dispatch(doResolveUri(uri)),
   getFile: uri => dispatch(doFileGet(uri, false)),
+  openModal: (modal, props) => dispatch(doOpenModal(modal, props)),
 });
 
 export default connect(select, perform)(ClaimPreview);

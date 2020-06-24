@@ -22,6 +22,9 @@ import ClaimRepostAuthor from 'component/claimRepostAuthor';
 import FileDownloadLink from 'component/fileDownloadLink';
 import AbandonedChannelPreview from 'component/abandonedChannelPreview';
 import PublishPending from 'component/publishPending';
+import Button from 'component/button';
+import * as PAGES from 'constants/pages';
+import * as MODALS from 'constants/modal_types';
 
 type Props = {
   uri: string,
@@ -59,6 +62,8 @@ type Props = {
   customShouldHide?: Claim => boolean,
   showUnresolvedClaim?: boolean,
   includeSupportAction?: boolean,
+  location: { pathname: string },
+  openModal: (id: string, { blockedUri: string }) => void,
 };
 
 const ClaimPreview = forwardRef<any, {}>((props: Props, ref: any) => {
@@ -91,6 +96,8 @@ const ClaimPreview = forwardRef<any, {}>((props: Props, ref: any) => {
     customShouldHide,
     showUnresolvedClaim,
     includeSupportAction,
+    location,
+    openModal,
   } = props;
   const shouldFetch =
     claim === undefined || (claim !== null && claim.value_type === 'channel' && isEmpty(claim.meta) && !pending);
@@ -158,6 +165,8 @@ const ClaimPreview = forwardRef<any, {}>((props: Props, ref: any) => {
   // Weird placement warning
   // Make sure this happens after we figure out if this claim needs to be hidden
   const thumbnailUrl = useGetThumbnail(uri, claim, streamingUrl, getFile, shouldHide);
+
+  const showRemoveInvalidBlockedButton = !claim && location.pathname === `/$/${PAGES.BLOCKED}`;
 
   function handleContextMenu(e) {
     // @if TARGET='app'
@@ -314,6 +323,13 @@ const ClaimPreview = forwardRef<any, {}>((props: Props, ref: any) => {
             </div>
           )}
         </div>
+        {showRemoveInvalidBlockedButton && (
+          <Button
+            button="primary"
+            label={__('Remove from list')}
+            onClick={() => openModal(MODALS.REMOVE_BLOCKED, { blockedUri: uri })}
+          />
+        )}
       </div>
     </li>
   );

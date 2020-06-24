@@ -1245,5 +1245,8 @@
   "Your changes will be live in a few minutes": "Your changes will be live in a few minutes",
   "Submitting": "Submitting",
   "Thumbnail Recommended ratio is 1:1": "Thumbnail Recommended ratio is 1:1",
-  "Cover Recommended ratio is 6.25:1": "Cover Recommended ratio is 6.25:1"
+  "Cover Recommended ratio is 6.25:1": "Cover Recommended ratio is 6.25:1",
+  "Remove from list": "Remove from list",
+  "Remove from Blocked List": "Remove from Blocked List",
+  "Are you sure you want to remove this from the list?": "Are you sure you want to remove this from the list?"
 }
